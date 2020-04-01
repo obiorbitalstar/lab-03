@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Spicy+Rice&display=swap');
+
+body{ 
+    font-family: 'Spicy Rice', cursive;
+    
+}
+ h1{
+    margin-left: 40%;
+    font-size: 40px;
+}
+ 
+div{
+    width: 250px;
+    height: 350px;
+     margin: 15px;
+     padding: 15px;
+      border: 1px solid green;
+      float: left;
+}
+img{
+    width: 250px;
+    border: 1px solid rgb(24, 184, 224);
+    margin-bottom: 10px;
+}
+
