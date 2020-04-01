@@ -1,0 +1,37 @@
+#container {
+    display: inline-block;
+    
+}
+.narwhal {visibility: visible;}
+ .narwhal.on{ visibility:hidden;}
+
+
+.rhino{visibility: visible;}
+.rhino.on{visibility: hidden;}
+
+.unicorn{visibility: visible;}
+.unicorn.on{ visibility: hidden;}
+
+.unilego{visibility: visible;}
+ .unilego.on{ visibility: hidden;}
+
+.triceratops{visibility: visible;}
+ .triceratops.on{ visibility: hidden;}
+
+ .markhor{visibility: visible;}
+ .markhor.on{ visibility: hidden;}
+
+ .mouflon{visibility: visible;}
+ .mouflon.on{ visibility: hidden;}
+
+ .addax{visibility: visible;}
+ .addax.on{ visibility: hidden;}
+
+ .chameleon{visibility: visible;}
+ .chameleon.on{ visibility: hidden;}
+
+ .lizard{visibility: visible;}
+ .lizard.on{ visibility: hidden;}
+
+ .dragon{visibility: visible;}
+ .dragon.on{ visibility: hidden;}
