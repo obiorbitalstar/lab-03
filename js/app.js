@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 $(document).ready(function(){
 
 
@@ -10,33 +11,21 @@ $(document).ready(function(){
     Horns.all.push(this);
   }
 
-  const readJson = () => {
-    $.ajax('./data/page-1.json', { method: 'GET', dataType: 'JSON' }).then(data => {
+  const readJson = (e) => {
+    $.ajax(`./data/page-${e}.json`, { method: 'GET', dataType: 'JSON' }).then(data => {
       data.forEach(element => {
         let box = new Horns(element);
-        box.filler();
+        box.selectOptionFiller();
         box.render();
       });
     });
   };
-
-  const readJson2 = () => {
-    $.ajax('./data/page-2.json', { method: 'GET', dataType: 'JSON' }).then(data => {
-      data.forEach(element => {
-        let box = new Horns(element);
-        box.filler();
-        box.render();
-      });
-    });
-  };
-
-
 
   Horns.all = [];
   let options =[];
-  readJson();
+  readJson(1);
 
-  Horns.prototype.filler = function(){
+  Horns.prototype.selectOptionFiller = function(){
     if(!options.includes(this.keyword)){
       options.push(this.keyword);
       $('#keyselectors').append(`<option>${this.keyword}</option>`);
@@ -47,18 +36,19 @@ $(document).ready(function(){
   };
 
 
-  let bE1 = $('#page1');
-  let bE2 = $('#page2');
-  bE1.on('click', ()=>{
-    $('div').remove();
-    readJson();
+  $('#page1').on('click', ()=>{
+    $('#container').empty();
+
+    readJson(1);
 
   });
 
-  bE2.on('click', ()=> {
-    $('div').remove();
-    readJson2();
+  $('#page2').on('click', ()=> {
+    $('#container').empty();
+
+    readJson(2);
   });
+
 
 
   Horns.prototype.render = function() {
@@ -69,16 +59,16 @@ $(document).ready(function(){
 
   let optionsFilter = ()=>{
     $('#keyselectors').change(function(){
-      $('section').hide();
+      $('#container').empty();
       let selectedValue = this.value;
       console.log('test',selectedValue);
 
-      render2(selectedValue);
+      filterAfterSelect(selectedValue);
 
     });
 
   };
-  let render2 = (slectedOp)=>{
+  let filterAfterSelect = (slectedOp)=>{
     console.log(slectedOp);
 
     for (let i = 0; i < Horns.all.length; i++) {
@@ -117,36 +107,42 @@ $(document).ready(function(){
 
   };
 
-  let sortingBy = $('#radioSorting');
-  sortingBy.on('change', ()=>{
-    let test = $('#hornSort').val();
+  $('#radioSorting').on('click',(e)=>{
+    // if(!e.target.id==='#radioSorting'){
+    if(e.target.id === 'titleSort'){
+      $('#container').empty();
+      sortDivsBy(Horns.all,'name');
+      Horns.all.forEach((element => {
+        element.render();
 
-    if ($('#titleSort').val() === true){
-      test = false;
-      Horns.all.sort((a, b) => (a.name > b.name) ? 1 : -1); // https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-      $('div').hide();
-      Horns.all.forEach((element, idx) => {
-        Horns.all[idx].render();
-        console.log(element.name);
+      }));
+        
+    }else if (e.target.id === 'hornSort') {
+      $('#container').empty();
+      sortDivsBy(Horns.all,'horns');
+      Horns.all.forEach((element => {
+        element.render();
 
-      });
-    }
-    else if ($('#hornSort').val() === true){
-      //sort by number
-      Horns.all.sort(function(a, b){return a.horns - b.horns;});
-      $('div').hide();
-      Horns.all.forEach((element, idx) => {
-        Horns.all[idx].render();
-
-      });
-    } else { console.log('somthing went wrong');
-      console.log($('#hornSort').val());
-      console.log($('#titleSort').val());
-      console.log(test);
-
-
+      }));
     }
   });
+ 
+  let sortDivsBy = (array,property)=>{
+    array.sort((a,b)=> {
+
+      let firstItem = a[property];
+      let secondItem = b[property]; 
+      if (firstItem > secondItem){ 
+        return 1; 
+
+      } else if (secondItem > firstItem) { 
+        return -1; 
+      } else {return 0;}
+    });
+
+
+  };
+
   optionsFilter();
 });
 
